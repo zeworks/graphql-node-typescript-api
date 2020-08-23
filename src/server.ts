@@ -4,12 +4,16 @@ import express from 'express'
 import { ApolloServer } from 'apollo-server-express'
 import { buildSchema } from 'type-graphql'
 import { UserResolver } from './resolvers/User'
+import { SessionResolver } from './resolvers/Session'
 import cookieParser from 'cookie-parser'
 
 (async () => {
   const server = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [UserResolver]
+      resolvers: [
+        UserResolver,
+        SessionResolver
+      ]
     }),
     context: ({ req, res }) => ({ req, res })
   })
@@ -20,8 +24,7 @@ import cookieParser from 'cookie-parser'
 
   app.use(cookieParser())
 
-  app.use((req, _, next) => {
-    console.log(req.cookies)
+  app.use((req, res, next) => {
     next()
   })
 

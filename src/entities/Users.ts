@@ -3,7 +3,7 @@ import { Field, Int, ObjectType } from 'type-graphql'
 
 @ObjectType()
 @Entity()
-export class User extends BaseEntity {
+export class Users extends BaseEntity {
   @Field(() => Int)
   @PrimaryGeneratedColumn()
   id: number;
@@ -12,7 +12,18 @@ export class User extends BaseEntity {
   @Column()
   firstName: string;
 
+  @Field(() => String, { nullable: true })
+  @Column({ nullable: true })
+  lastName: string;
+
   @Field()
   @Column()
-  lastName: string;
+  email: string;
+
+  @Column()
+  password: string;
+
+  @Field(() => String, { nullable: true })
+  @Column({ nullable: true })
+  token: string;
 }
